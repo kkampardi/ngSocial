@@ -14,15 +14,14 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/justified-nav.css">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- endbuild -->
   </head>
 
-  <body ng-app="ngsocialApp">
+  <body>
+        <div ui-view="header"></div>
         <div class="container">
-
-          <div ui-view="header"></div>
           <div ui-view="content"></div>
           <div ui-view="footer"></div>
 
@@ -55,7 +54,7 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/facebook.js"></script>
         <!-- endbuild -->
 </body>
 </html>
