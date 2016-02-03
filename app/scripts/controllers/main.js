@@ -9,9 +9,17 @@ angular.module('ngsocialApp')
   .controller('ServicesController', ['$scope', '$http',
    function ($scope, $http)  {
     console.log('ServicesController');
-    $http.get('/services.json').then(function(response){
+    $http.get('json/services.json').then(function(response){
       $scope.services = response.data;
       console.log($scope.services);
+    })
+  }])
+
+  .controller('ContactController', [ '$scope', '$http', function ($scope, $http) {
+    console.log('ContactController');
+    $http.get('json/locations.json').then(function(response){
+      $scope.locations = response.data;
+      console.log($scope.locations);
     })
   }])
 ;

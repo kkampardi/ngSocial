@@ -35,7 +35,7 @@ angular
                 url:'services',
                 views: {
                     'content@': {
-                        templateUrl : 'views/services.html',
+                        templateUrl : 'views/services-view.html',
                         controller  : 'ServicesController'
                     }
                 }
@@ -46,7 +46,7 @@ angular
                       views: {
                           'content@': {
                               templateUrl : 'views/contact.html',
-                              controller  : 'AboutController'
+                              controller  : 'ContactController'
                           }
                       }
                   });
