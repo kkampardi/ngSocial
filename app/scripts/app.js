@@ -30,16 +30,16 @@ angular
                     }
                 }
             })
-            // route for the template details page
+            // route for the aboutus page
             .state('app.services', {
                 url:'services',
-                    views: {
-                        'content@': {
-                            templateUrl : 'views/services.html',
-                            controller  : 'AboutController'
-                        }
+                views: {
+                    'content@': {
+                        templateUrl : 'views/services.html',
+                        controller  : 'ServicesController'
                     }
-                })
+                }
+              })
                 // route for the template details page
                 .state('app.contact', {
                   url:'contact',
