@@ -1,19 +1,26 @@
 <div class="row" ng-controller="FacebookController">
       <div class="col-md-4">
-        <h4>Please Log In</h4>
+        <h4>{{welcomeMsg}}</h4>
+        <span ng-if="islogedin != true">
         <button type="button" class="btn btn-default" ng-click="login()">Login</button>
+        </span>
+        <span ng-if="islogedin == true">
+        <button type="button" class="btn btn-default" ng-click="logout()">Logout</button>
+        </span>
         <br><br>
+        <span ng-if="islogedin">
         <div class="well">
           <h4>User Info</h4>
           <ul>
-            <li>ID: someID</li>
-            <li>First Name: John</li>
-            <li>Last Name: Doe</li>
-            <li>Email: John@gmail.com</li>
-            <li>Gender: Male</li>
-            <li>Locale: enGB</li>
+            <li>ID: {{userInfo.id}}</li>
+            <li>First Name: {{userInfo.first_name}}</li>
+            <li>Last Name: {{userInfo.last_name}}</li>
+            <li>Email: {{userInfo.email}}</li>
+            <li>Gender: {{userInfo.gender}}</li>
+            <li>Locale: {{userInfo.locale}}</li>
           </ul>
         </div>
+      </span>
         <br>
         <div class="well">
           <h4>Permissions</h4>
