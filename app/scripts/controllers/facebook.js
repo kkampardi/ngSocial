@@ -1,40 +1,74 @@
 'use strict';
 
 angular.module('ngsocialApp')
-  .controller('FacebookController', ['$scope', '$facebook',
-    function ($scope, $facebook) {
-    console.log('FacebookController');
-    $scope.islogedin = false;
 
-    $scope.login = function(){
-      $facebook.login().then(function(){
-        console.log('Logged in');
-        $scope.islogedin = true;
-        refresh();
-      });
-    };
+  //facebook config
+  .config( function( $facebookProvider ) {
+    $facebookProvider.setAppId('164515627256520');
+    $facebookProvider.setPermissions("email,public_profile,user_posts, publish_actions,user_photos,user_likes");
+  })
 
-    $scope.logout = function(){
-      $facebook.logout().then(function(){
-        console.log('Logged out');
-        $scope.islogedin = false;
-        refresh();
-      });
-    };
+  .run(function($rootScope){
+  	(function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  })
+
+    .controller('FacebookController', ['$scope', '$facebook',
+      function ($scope, $facebook) {
+      console.log('FacebookController');
+      $scope.isLogedin = false;
+
+      $scope.login = function(){
+        $facebook.login().then(function(){
+          console.log('Logged in');
+          $scope.isLogedin = true;
+          refresh();
+        });
+      };
+
+      $scope.logout = function(){
+        $facebook.logout().then(function(){
+          console.log('Logged out');
+          $scope.isLogedin = false;
+          refresh();
+        });
+      };
 
       function refresh(){
-        $facebook.api('/me').then(function(response){
-          $scope.welcomeMsg = 'Wellcome ' + response.name;
-          $scope.islogedin = true;
-          $scope.userInfo = response;
-          console.log($scope.userInfo);
-        },
-      function(err){
-        $scope.welcomeMsg = 'Please Log In';
+          $facebook.api('/me').then(function(response){
+            $scope.welcomeMsg = 'Wellcome ' + response.name;
+            $scope.isLogedin = true;
+            $scope.userInfo = response;
+            console.log("User info",$scope.userInfo);
+            $facebook.api('/me/picture').then(function(response){
+      				$scope.picture = response.data.url;
+      				$facebook.api('/me/permissions').then(function(response){
+      				$scope.permissions = response.data;
+      					    $facebook.api('/me/posts').then(function(response){
+      						  console.log("posts", response.data);
+      					  	$scope.posts = response.data;
+      					});
+      				});
+      			});
+      		},
+        function(err){
+          $scope.welcomeMsg = 'Please Log In';
+        }
+        );
       }
-      );
-    }
+      $scope.postStatus = function(){
+    		var body = this.body;
+    		$facebook.api('/me/feed', 'post', {message: body}).then(function(response){
+    			$scope.msg = 'Thanks for Posting';
+    			refresh();
+    		});
+    	}
 
-    refresh();
-  }])
+      refresh();
+    }])
 ;
